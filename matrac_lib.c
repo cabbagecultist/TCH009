@@ -79,4 +79,43 @@ int lire_donnees_gps(char nom_fichier[],
 }
 
 // implementations des fonctions de matrac_lib (c.f. prototype et doc dans matrac_lib.h)
+double convertir_en_radian(double angle) {
+	return angle * PI / 180.0;
+}
+
+double distance_entre_2_points(double latitude1,
+							   double longitude1,
+							   double latitude2,
+							   double longitude2,
+							   double altidute1,
+							   double altidute2) {
+
+	// Convertir les mesures brutes en radians et kilomètres
+	double latitude1_rad = convertir_en_radian(latitude1);
+	double longitude1_rad = convertir_en_radian(longitude1);
+	double altitude1_km = altidute1 / 1000.0;
+
+	double latitude2_rad = convertir_en_radian(latitude2);
+	double longitude2_rad = convertir_en_radian(longitude2);
+	double altitude2_km = altidute2 / 1000.0;
+
+	// Calculer la distance sans prendre en compte l'altitude
+	double d = RAYON_TERRE * 2 * asin(sqrt(pow(sin((latitude1_rad - latitude2_rad)/2), 2) + cos(latitude1_rad) * cos(latitude2_rad) * pow(sin((longitude1_rad - longitude2_rad)/2), 2)));
+
+	// Ajouter l'influence de l'altitude
+	double d_totale = sqrt(pow(d, 2) + pow(altitude2_km - altitude1_km, 2));
+
+	return d_totale;
+}
+
+void afficher_tableau(double tableau[], int nb_valeurs) {
+	// Obligatoire pour respecter l'énoncé
+	if (nb_valeurs <= 0) {
+		return;
+	}
+
+	for (int i = 0; i < nb_valeurs; i++) {
+		printf("%f\n", tableau[i]);
+	}
+}
 

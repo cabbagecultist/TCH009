@@ -112,8 +112,16 @@ void analyser(double tab_latitudes[], double tab_longitudes[], double tab_altitu
 void calculer(double tab_latitudes[], double tab_longitudes[], double tab_altitudes[], int taille);
 
 // Programme principal
+#define TEST
 int main()
 {
-
+#ifndef TEST
+	// Code principal
+#else
+	// Code de test
+	test_convertir_en_radian();
+	test_distance_entre_2_points();
+	test_afficher_afficher_tableau();
+#endif
 	return EXIT_SUCCESS;
 }
