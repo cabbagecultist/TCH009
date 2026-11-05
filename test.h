@@ -95,16 +95,4 @@ void test_pente_maximale();
 */
 void test_minimum_tableau();
 
-/* ---------------------------------------------------------------------------------------------------------------------
-    Fonction: test_maximum_tableau
-    Auteur:
-    Description:
-        Cette fonction teste la fonction maximum_tableau.
-    Parametres:
-        Aucun.
-    Valeur de retour:
-        Aucune.
-*/
-void test_maximum_tableau();
-
 #endif //TEST_H

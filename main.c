@@ -55,7 +55,18 @@
 	Cas particuliers:
 		- S'il y a eu un problème lors de la lecture, la fonction renvoie -1 sinon elle retourne le nombre de points lus;
 */
-int charger(double tab_latitudes[], double tab_longitudes[], double tab_altitudes[], int taille_max);
+int charger(double tab_latitudes[], double tab_longitudes[], double tab_altitudes[], int taille_max) {
+	char nom_fichier[LONGUEUR_MAX_NOM_FICHIER];
+
+	printf("Nom du fichier: ");
+	scanf("%s", nom_fichier);
+
+	printf("Chargement du fichier %s...", nom_fichier);
+
+	int code = lire_donnees_gps(nom_fichier, tab_latitudes, tab_longitudes, tab_altitudes, taille_max);
+
+	return code;
+}
 
 /* ---------------------------------------------------------------------------------------------------------------------
 	Fonction: afficher
@@ -122,6 +133,26 @@ int main()
 	test_convertir_en_radian();
 	test_distance_entre_2_points();
 	test_afficher_afficher_tableau();
+	test_afficher_afficher_tableau();
+
+	// Test charger
+	printf("Test charger avec taille_max = 10000...\n");
+	double tab_latitudes1[NB_MAX_POINT];
+	double tab_longitudes1[NB_MAX_POINT];
+	double tab_altitudes1[NB_MAX_POINT];
+	printf("retour de charger: %d\n", charger(tab_latitudes1, tab_longitudes1, tab_altitudes1, NB_MAX_POINT));
+	// afficher_tableau(tab_latitudes1, NB_MAX_POINT);
+	// afficher_tableau(tab_longitudes1, NB_MAX_POINT);
+	// afficher_tableau(tab_altitudes1, NB_MAX_POINT);
+
+	printf("Test charger avec taille_max = 4...\n");
+	double tab_latitudes2[5];
+	double tab_longitudes2[5];
+	double tab_altitudes2[5];
+	printf("retour de charger: %d\n", charger(tab_latitudes2, tab_longitudes2, tab_altitudes2, 4));
+	afficher_tableau(tab_latitudes2, 5);
+	afficher_tableau(tab_longitudes2, 5);
+	afficher_tableau(tab_altitudes2, 5);
 #endif
 	return EXIT_SUCCESS;
 }
