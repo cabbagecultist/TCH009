@@ -54,7 +54,7 @@ int lire_donnees_gps(char nom_fichier[],
 
 /* ---------------------------------------------------------------------------------------------------------------------
 	Fonction: convertir_en_radian
-	Auteur:
+	Auteur: Charles Petit
 	Description:
 		Cette fonction convertit en radians une valeur d'angle donnee initialement en degres.
 	Parametres:
@@ -66,7 +66,7 @@ double convertir_en_radian(double angle);
 
 /* ---------------------------------------------------------------------------------------------------------------------
 	Fonction: distance_entre_2_points
-	Auteur:
+	Auteur: Charles Petit
 	Description:
 		Cette fonction calcule la distance entre 2 points decrits par leurs latitudes, longitudes et altitudes
 	Parametres:
@@ -93,7 +93,7 @@ double distance_entre_2_points(double latitude1,
 
 /* ---------------------------------------------------------------------------------------------------------------------
 	Fonction: afficher_tableau
-	Auteur:
+	Auteur: Charles Petit
 	Description:
 		Cette fonction affiche le contenu d'un tableau 1D de double (1 valeur par ligne).
 	Parametres:

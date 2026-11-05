@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------
 	Fonction: charger
-	Auteur:
+	Auteur: Charles Petit
 	Description:
 		Cette fonction saisi un nom de fichier de donnees GPS, lit et place toutes les donnees dans des tableaux
 		statiques fournis en parametres. Le format du fichier est le suivant :
@@ -70,7 +70,7 @@ int charger(double tab_latitudes[], double tab_longitudes[], double tab_altitude
 
 /* ---------------------------------------------------------------------------------------------------------------------
 	Fonction: afficher
-	Auteur:
+	Auteur: Charles Petit
 	Description:
 		Cette fonction affiche toutes les donnees de la trace presente en memoire avec la premiere ligne d'en-tete
 		suivante:
@@ -85,7 +85,19 @@ int charger(double tab_latitudes[], double tab_longitudes[], double tab_altitude
 	Cas particuliers:
 		- Quand la taille est nulle ou negative, seule la ligne d'en-tete est affichee.
 */
-void afficher(double tab_latitudes[], double tab_longitudes[], double tab_altitudes[], int taille);
+void afficher(double tab_latitudes[], double tab_longitudes[], double tab_altitudes[], int taille) {
+	printf("index      lattitude     longitude   altitude\n");
+
+	if (taille <= 0) {
+		return;
+	}
+
+	// Itérer sur tous les éléments des colonnes
+	for (int i = 0; i < taille; i++) {
+		// Afficher une rangée à la fois
+		printf("%d      %f      %f      %f\n", i, tab_latitudes[i], tab_longitudes[i], tab_altitudes[i]);
+	}
+}
 
 /* ---------------------------------------------------------------------------------------------------------------------
 	Fonction: analyser
@@ -122,6 +134,63 @@ void analyser(double tab_latitudes[], double tab_longitudes[], double tab_altitu
 */
 void calculer(double tab_latitudes[], double tab_longitudes[], double tab_altitudes[], int taille);
 
+/* ---------------------------------------------------------------------------------------------------------------------
+	Fonction: test_charger
+	Auteur: Charles Petit
+	Description:
+		Cette fonction teste la fonction charger.
+	Parametres:
+		Aucun.
+	Valeur de retour:
+		Aucune.
+*/
+void test_charger() {
+	double tab_latitudes[NB_MAX_POINT];
+	double tab_longitudes[NB_MAX_POINT];
+	double tab_altitudes[NB_MAX_POINT];
+	int taille;
+
+	printf("Test charger avec taille_max = 10000...\n");
+	taille = charger(tab_latitudes, tab_longitudes, tab_altitudes, NB_MAX_POINT);
+	printf("retour de charger: %d\n", taille);
+	afficher_tableau(tab_latitudes, taille);
+	afficher_tableau(tab_longitudes, taille);
+	afficher_tableau(tab_altitudes, taille);
+
+	printf("Test charger avec taille_max = 4...\n");
+	taille = charger(tab_latitudes, tab_longitudes, tab_altitudes, 4);
+	printf("retour de charger: %d\n", taille);
+	afficher_tableau(tab_latitudes, taille);
+	afficher_tableau(tab_longitudes, taille);
+	afficher_tableau(tab_altitudes, taille);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------
+	Fonction: test_afficher
+	Auteur: Charles Petit
+	Description:
+		Cette fonction teste la fonction afficher.
+	Parametres:
+		Aucun.
+	Valeur de retour:
+		Aucune.
+*/
+void test_afficher() {
+	double tab_latitudes[NB_MAX_POINT];
+	double tab_longitudes[NB_MAX_POINT];
+	double tab_altitudes[NB_MAX_POINT];
+	int taille = charger(tab_latitudes, tab_longitudes, tab_altitudes, NB_MAX_POINT);
+
+	// Test conditions normales
+	afficher(tab_latitudes, tab_longitudes, tab_altitudes, taille);
+
+	// Test taille = 0
+	afficher(tab_latitudes, tab_longitudes, tab_altitudes, 0);
+
+	// Test taille = -1
+	afficher(tab_latitudes, tab_longitudes, tab_altitudes, -1);
+}
+
 // Programme principal
 #define TEST
 int main()
@@ -130,29 +199,13 @@ int main()
 	// Code principal
 #else
 	// Code de test
-	test_convertir_en_radian();
-	test_distance_entre_2_points();
-	test_afficher_afficher_tableau();
-	test_afficher_afficher_tableau();
+	// test_convertir_en_radian();
+	// test_distance_entre_2_points();
+	// test_afficher_afficher_tableau();
+	// test_afficher_afficher_tableau();
+	// test_charger();
+	test_afficher();
 
-	// Test charger
-	printf("Test charger avec taille_max = 10000...\n");
-	double tab_latitudes1[NB_MAX_POINT];
-	double tab_longitudes1[NB_MAX_POINT];
-	double tab_altitudes1[NB_MAX_POINT];
-	printf("retour de charger: %d\n", charger(tab_latitudes1, tab_longitudes1, tab_altitudes1, NB_MAX_POINT));
-	// afficher_tableau(tab_latitudes1, NB_MAX_POINT);
-	// afficher_tableau(tab_longitudes1, NB_MAX_POINT);
-	// afficher_tableau(tab_altitudes1, NB_MAX_POINT);
-
-	printf("Test charger avec taille_max = 4...\n");
-	double tab_latitudes2[5];
-	double tab_longitudes2[5];
-	double tab_altitudes2[5];
-	printf("retour de charger: %d\n", charger(tab_latitudes2, tab_longitudes2, tab_altitudes2, 4));
-	afficher_tableau(tab_latitudes2, 5);
-	afficher_tableau(tab_longitudes2, 5);
-	afficher_tableau(tab_altitudes2, 5);
 #endif
 	return EXIT_SUCCESS;
 }
