@@ -203,8 +203,7 @@ int main()
 	// test_distance_entre_2_points();
 	// test_afficher_afficher_tableau();
 	// test_afficher_afficher_tableau();
-	//
-	// xfgxtfycfty
+	// testsadjkhdsfoghi
 	// test_charger();
 	test_afficher();
 
