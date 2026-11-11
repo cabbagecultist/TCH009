@@ -207,6 +207,8 @@ int main()
 	// test_charger();
 	test_afficher();
 
+	test_distance_totale();
+	test_pente_maximale();
 #endif
 	return EXIT_SUCCESS;
 }
