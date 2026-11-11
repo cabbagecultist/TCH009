@@ -119,3 +119,30 @@ void afficher_tableau(double tableau[], int nb_valeurs) {
 	}
 }
 
+double distance_totale(double tab_latitudes[], double tab_longitudes[], double tab_altitudes[], int taille, int debut, int fin) {
+
+	double d_tot = 0;
+
+	// Si valeurs négatives, programme s'arrête
+	if (debut < 0 || fin < 0) {
+		return 0;
+	}
+	// Sinon si valeurs ne se retrouvent pas dans la taille, programme s'arrête
+	else if (debut >= taille || fin >= taille) {
+		return 0;
+	}
+	// Sinon si début = fin ou début > fin, distance totale = 0 automatiquement
+	else if (debut == fin || debut > fin) {
+		d_tot = 0;
+
+    // Sinon, procéder pour trouver la distance totale
+	} else {
+		// Parcourir tous les points se situant entre début et fin
+		for (int i = debut; i < fin; i++) {
+
+			// Distance totale = somme de chaque segment de 2 points
+			d_tot = d_tot + distance_entre_2_points(tab_latitudes[i], tab_longitudes[i], tab_latitudes[i+1], tab_longitudes[i+1], tab_altitudes[i], tab_altitudes[i+1]);
+		}
+	}
+	return d_tot;
+}
