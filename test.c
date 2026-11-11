@@ -40,3 +40,34 @@ void test_afficher_afficher_tableau() {
     afficher_tableau(tableau, -1);
     printf("fin test::test_afficher_afficher_tableau()\n");
 }
+void test_pente_maximale() {
+    // Appel de la fonction lire_donnees_gps pour charger test 1
+    double tab_latitudes[MAX];
+    double tab_longitudes[MAX];
+    double tab_altitudes[MAX];
+    int taille_max = 2500;
+
+    lire_donnees_gps("test1.txt", tab_latitudes, tab_longitudes, tab_altitudes, taille_max);
+
+    assert((pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 10, 3)) >= 0.599 - TOLERANCE2
+        && (pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 10, 3)) <= 0.599 + TOLERANCE2);
+
+    assert((pente_maximale(tab_latitudes,tab_longitudes, tab_altitudes, 10, 1)) >= 1.194 - TOLERANCE2
+        && (pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 10, 1)) <= 1.194 + TOLERANCE2);
+
+    assert((pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 10, 10)) >= 0 - TOLERANCE2
+        && (pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 10, 10)) <= 0 + TOLERANCE2);
+
+    assert((pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 10, -2)) >= 0 - TOLERANCE2
+        && (pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 10, -2)) <= 0 + TOLERANCE2);
+
+    assert((pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 10, 0)) >= 0 - TOLERANCE2
+        && (pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 10, 0)) <= 0 + TOLERANCE2);
+
+    // Appel de la fonction lire_donnees_gps pour charger test 2
+    lire_donnees_gps("test2.txt", tab_latitudes, tab_longitudes, tab_altitudes, taille_max);
+
+    assert((pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 2482, 50)) >= 6.116 - TOLERANCE2
+        && (pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 2482, 50)) <= 6.116 + TOLERANCE2);
+
+}
