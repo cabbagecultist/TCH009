@@ -209,6 +209,7 @@ int main()
 
 	test_distance_totale();
 	test_pente_maximale();
+	
 #endif
 	return EXIT_SUCCESS;
 }

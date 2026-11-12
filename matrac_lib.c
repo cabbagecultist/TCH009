@@ -140,7 +140,7 @@ double distance_totale(double tab_latitudes[], double tab_longitudes[], double t
 		// Parcourir tous les points se situant entre début et fin
 		for (int i = debut; i < fin; i++) {
 
-			// Distance totale = somme de chaque segment de 2 points
+			// Distance totale = somme totale de chaque segment de 2 points
 			d_tot = d_tot + distance_entre_2_points(tab_latitudes[i], tab_longitudes[i], tab_latitudes[i+1], tab_longitudes[i+1], tab_altitudes[i], tab_altitudes[i+1]);
 		}
 	}
