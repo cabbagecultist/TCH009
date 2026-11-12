@@ -206,6 +206,7 @@ int main()
 	// testsadjkhdsfoghi
 	// test_charger();
 	test_afficher();
+	test_ascension(); // Executer les tests de l'ascension
 
 #endif
 	return EXIT_SUCCESS;

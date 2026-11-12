@@ -119,8 +119,6 @@ void afficher_tableau(double tableau[], int nb_valeurs) {
 	}
 }
 
-
-
 double ascension(double tab_altitudes[], int taille)
 {
 	double total;       // Total des montees
