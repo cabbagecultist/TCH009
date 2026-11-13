@@ -63,6 +63,7 @@ void test_ascension() {
 
     assert((ascension(altitudes2, 2482) >= 1368.8 - TOLERANCE)
         && (ascension(altitudes2, 2482) <= 1368.8 + TOLERANCE)); // Verifie une ascension de 0 metre
+}
 
 void test_distance_totale() {
     // Appel de la fonction lire_donnees_gps pour charger test 1
