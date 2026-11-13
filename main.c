@@ -205,7 +205,7 @@ int main()
 	// test_afficher_afficher_tableau();
 	// test_charger();
 	// test_afficher();
-
+	test_ascension(); // Executer les tests de l'ascension
 	test_distance_totale();
 	test_pente_maximale();
 	

@@ -41,6 +41,30 @@ void test_afficher_afficher_tableau() {
     printf("fin test::test_afficher_afficher_tableau()\n");
 }
 
+void test_ascension() {
+    // Inutiles pour ce test
+    double tab_latitudes[NB_MAX_POINT];
+    double tab_longitudes[NB_MAX_POINT];
+
+    double altitudes1[NB_MAX_POINT];
+    double altitudes2[NB_MAX_POINT];
+
+    lire_donnees_gps("test1.txt", tab_latitudes, tab_longitudes, altitudes1, NB_MAX_POINT); // test1.txt
+    lire_donnees_gps("test2.txt", tab_latitudes, tab_longitudes, altitudes2, NB_MAX_POINT); // test2.txt
+
+    assert((ascension(altitudes1, 10) >= 2 - TOLERANCE)
+        && (ascension(altitudes1, 10) <= 2 + TOLERANCE)); // Verifie une ascension de 2 metres
+
+    assert((ascension(altitudes1, 0) >= 0 - TOLERANCE)
+        && (ascension(altitudes1, 0) <= 0 + TOLERANCE)); // Verifie les tailles nulles
+
+    assert((ascension(altitudes1, -2) >= 0 - TOLERANCE)
+        && (ascension(altitudes1, -2) <= 0 + TOLERANCE)); // Verifie les tailles négatives
+
+    assert((ascension(altitudes2, 2482) >= 1368.8 - TOLERANCE)
+        && (ascension(altitudes2, 2482) <= 1368.8 + TOLERANCE)); // Verifie une ascension de 0 metre
+}
+
 void test_distance_totale() {
     // Appel de la fonction lire_donnees_gps pour charger test 1
     double tab_latitudes[NB_MAX_POINT];
@@ -75,8 +99,8 @@ void test_distance_totale() {
 
     assert((distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, 100, 1000)) >= 36.35 - TOLERANCE
         && (distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, 100, 1000)) <= 36.35 + TOLERANCE);
-
 }
+
 void test_pente_maximale() {
     // Appel de la fonction lire_donnees_gps pour charger test 1
     double tab_latitudes[NB_MAX_POINT];
@@ -105,5 +129,4 @@ void test_pente_maximale() {
 
     assert((pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 2482, 50)) >= 6.116 - TOLERANCE
         && (pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 2482, 50)) <= 6.116 + TOLERANCE);
-
 }
