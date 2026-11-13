@@ -207,3 +207,29 @@ void calculer(double tab_latitudes[], double tab_longitudes[], double tab_altitu
 	// Afficher la pente maximale
 	printf("%.3lf %%\n", p_max);
 }
+
+double ascension(double tab_altitudes[], int taille)
+{
+	double total;       // Total des montees
+	double difference;  // Difference entre deux altitudes
+	int i;              // Compteur pour parcourir le tableau
+
+	total = 0;          // Initialiser le total a 0
+
+	if(taille <= 0)     // Verifier si la taille est nulle ou negative
+	{
+		return 0;       // Retourner 0 si la taille est invalide
+	}
+
+	for(i = 1; i < taille; i++) // Parcourir les altitudes
+	{
+		difference = tab_altitudes[i] - tab_altitudes[i - 1]; // Calculer la difference
+
+		if(difference > 0) // Verifier si c'est une montee
+		{
+			total = total + difference; // Ajouter la montee au total
+		}
+	}
+
+	return total; // Retourner le total des montees en metres
+}
