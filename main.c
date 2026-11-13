@@ -203,9 +203,8 @@ int main()
 	// test_distance_entre_2_points();
 	// test_afficher_afficher_tableau();
 	// test_afficher_afficher_tableau();
-	// testsadjkhdsfoghi
 	// test_charger();
-	test_afficher();
+	// test_afficher();
 
 	test_distance_totale();
 	test_pente_maximale();
