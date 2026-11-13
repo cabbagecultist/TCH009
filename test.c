@@ -43,12 +43,25 @@ void test_afficher_afficher_tableau() {
 
 void test_ascension()
 {
-    double altitudes1[] = {65.0, 65.0, 65.5, 65.5, 67.0, 67.0, 67.0, 66.5, 66.5, 66.5}; // test1.txt
-    double altitudes2[] = {794.7, 794.2, 794.2, 794.2, 793.2, 792.7, 792.7, 792.7, 792.7, 792.7}; // test2.txt
+    // Inutiles pour ce test
+    double tab_latitudes[NB_MAX_POINT];
+    double tab_longitudes[NB_MAX_POINT];
 
-    assert(ascension(altitudes1, 10) == 2); // Verifie une ascension de 2 metres
-    assert(ascension(altitudes2, 10) == 0); // Verifie une ascension de 0 metre
+    double altitudes1[NB_MAX_POINT];
+    double altitudes2[NB_MAX_POINT];
 
-    assert(ascension(altitudes1, 0) == 0); // Verifie les tailles nulles
-    assert(ascension(altitudes1, -2) == 0); // Verifie les tailles négatives
+    lire_donnees_gps("test1.txt", tab_latitudes, tab_longitudes, altitudes1, NB_MAX_POINT); // test1.txt
+    lire_donnees_gps("test2.txt", tab_latitudes, tab_longitudes, altitudes2, NB_MAX_POINT); // test2.txt
+
+    assert((ascension(altitudes1, 10) >= 2 - TOLERANCE)
+        && (ascension(altitudes1, 10) <= 2 + TOLERANCE)); // Verifie une ascension de 2 metres
+
+    assert((ascension(altitudes1, 0) >= 0 - TOLERANCE)
+        && (ascension(altitudes1, 0) <= 0 + TOLERANCE)); // Verifie les tailles nulles
+
+    assert((ascension(altitudes1, -2) >= 0 - TOLERANCE)
+        && (ascension(altitudes1, -2) <= 0 + TOLERANCE)); // Verifie les tailles négatives
+
+    assert((ascension(altitudes2, 2482) >= 1368.8 - TOLERANCE)
+        && (ascension(altitudes2, 2482) <= 1368.8 + TOLERANCE)); // Verifie une ascension de 0 metre
 }
