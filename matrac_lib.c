@@ -119,6 +119,95 @@ void afficher_tableau(double tableau[], int nb_valeurs) {
 	}
 }
 
+double distance_totale(double tab_latitudes[], double tab_longitudes[], double tab_altitudes[], int taille, int debut, int fin) {
+
+	double d_tot = 0;
+
+	// Si valeurs négatives, programme s'arrête
+	if (debut < 0 || fin < 0) {
+		return 0;
+	}
+	// Sinon si valeurs ne se retrouvent pas dans la taille, programme s'arrête
+	else if (debut >= taille || fin >= taille) {
+		return 0;
+	}
+	// Sinon si début = fin ou début > fin, distance totale = 0 automatiquement
+	else if (debut == fin || debut > fin) {
+		d_tot = 0;
+
+    // Sinon, procéder pour trouver la distance totale
+	} else {
+		// Parcourir tous les points se situant entre début et fin
+		for (int i = debut; i < fin; i++) {
+
+			// Distance totale = somme totale de chaque segment de 2 points
+			d_tot = d_tot + distance_entre_2_points(tab_latitudes[i], tab_longitudes[i], tab_latitudes[i+1], tab_longitudes[i+1], tab_altitudes[i], tab_altitudes[i+1]);
+		}
+	}
+	return d_tot;
+}
+
+double pente_maximale(double tab_latitudes[], double tab_longitudes[], double tab_altitudes[], int taille, int taille_fenetre) {
+
+	double h;                  // Fluctuation de l'altitude (delta h)
+	double d;                 // Distance accomplie (delta d)
+	double pente;            // Pente de chaque point
+	double pente_max = 0;   // Pente maximale
+
+	// Si la taille fenêtre est plus petite ou égale à 0, il n'est pas possible de calculer la pente, donc programme s'arrête
+	if (taille_fenetre <= 0) {
+		return 0;
+	}
+	// Sinon, si pas assez de points pour calculer la pente, programme s'arrête
+	else if (taille <= 2 * taille_fenetre) {
+		return 0;
+	}
+	// Sinon, procéder pour trouver la pente maximale
+	else {
+		// Parcourir tous les points se trouvant dans l'intervalle de la taille fenêtre
+		for (int i = taille_fenetre; i <= taille - taille_fenetre - 1; i++) {
+			// Point final de la fenêtre - point initial de la fenêtre
+			h = tab_altitudes[i + taille_fenetre] - tab_altitudes[i - taille_fenetre];
+
+			// Appel de la fonction distance_totale pour calculer la distance totale entre un point de début et un point de fin
+			d = distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, i - taille_fenetre, i + taille_fenetre);
+
+			// Convertir d en mètres, car la distance totale donne des kilomètres
+			d = d * 1000;
+
+			// Si la distance = 0, la pente = 0 automatiquement pour éviter la division par 0
+			if (d == 0) {
+				pente = 0;
+			}
+			// Sinon, procéder avec le calcul de la pente
+			else {
+				pente = h / d;
+			}
+			// Pour trouver la pente maximale
+			if (pente > pente_max) {
+				pente_max = pente;
+			}
+
+		}
+		// Convertir pente maximale en pourcentage
+		pente_max = pente_max * 100;
+
+		return pente_max;
+	}
+}
+
+void calculer(double tab_latitudes[], double tab_longitudes[], double tab_altitudes[], int taille, int taille_fenetre) {
+
+	printf("Nombre de points pour le calcul de la pente : ");  // Demander à l'utilisateur d'entrer une taille fenêtre
+	scanf("%d", &taille_fenetre);                             // Lire la taille fenêtre
+
+	// Appel de la fonction pente_maximale pour calculer la pente maximale
+	double p_max = pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, taille, taille_fenetre);
+
+	// Afficher la pente maximale
+	printf("%.3lf %%\n", p_max);
+}
+
 double ascension(double tab_altitudes[], int taille)
 {
 	double total;       // Total des montees

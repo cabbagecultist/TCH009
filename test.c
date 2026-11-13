@@ -41,8 +41,7 @@ void test_afficher_afficher_tableau() {
     printf("fin test::test_afficher_afficher_tableau()\n");
 }
 
-void test_ascension()
-{
+void test_ascension() {
     // Inutiles pour ce test
     double tab_latitudes[NB_MAX_POINT];
     double tab_longitudes[NB_MAX_POINT];
@@ -64,4 +63,69 @@ void test_ascension()
 
     assert((ascension(altitudes2, 2482) >= 1368.8 - TOLERANCE)
         && (ascension(altitudes2, 2482) <= 1368.8 + TOLERANCE)); // Verifie une ascension de 0 metre
+
+void test_distance_totale() {
+    // Appel de la fonction lire_donnees_gps pour charger test 1
+    double tab_latitudes[NB_MAX_POINT];
+    double tab_longitudes[NB_MAX_POINT];
+    double tab_altitudes[NB_MAX_POINT];
+
+    int taille = lire_donnees_gps("test1.txt", tab_latitudes, tab_longitudes, tab_altitudes, NB_MAX_POINT);
+
+    assert((distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, 0, 9)) >= 0.45 - TOLERANCE
+        && (distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, 0, 9)) <= 0.45 + TOLERANCE);
+
+    assert((distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, 3, 6)) >= 0.2 - TOLERANCE
+        && (distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, 3, 6)) <= 0.2 + TOLERANCE);
+
+    assert((distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, 6, 3)) >= 0 - TOLERANCE
+        && (distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, 6, 3)) <= 0 + TOLERANCE);
+
+    assert((distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, -1, 6)) >= 0 - TOLERANCE
+        && (distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, -1, 6)) <= 0 + TOLERANCE);
+
+    assert((distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, 20, 6)) >= 0 - TOLERANCE
+        && (distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, 20, 6)) <= 0 + TOLERANCE);
+
+    assert((distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, 3, 16)) >= 0 - TOLERANCE
+        && (distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, 3, 16)) <= 0 + TOLERANCE);
+
+    assert((distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, 3, -1)) >= 0 - TOLERANCE
+        && (distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, 3, -1)) <= 0 + TOLERANCE);
+
+    // Appel de la fonction lire_donnees_gps pour charger test 2
+    taille = lire_donnees_gps("test2.txt", tab_latitudes, tab_longitudes, tab_altitudes, NB_MAX_POINT);
+
+    assert((distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, 100, 1000)) >= 36.35 - TOLERANCE
+        && (distance_totale(tab_latitudes, tab_longitudes, tab_altitudes, taille, 100, 1000)) <= 36.35 + TOLERANCE);
+}
+
+void test_pente_maximale() {
+    // Appel de la fonction lire_donnees_gps pour charger test 1
+    double tab_latitudes[NB_MAX_POINT];
+    double tab_longitudes[NB_MAX_POINT];
+    double tab_altitudes[NB_MAX_POINT];
+
+    lire_donnees_gps("test1.txt", tab_latitudes, tab_longitudes, tab_altitudes, NB_MAX_POINT);
+
+    assert((pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 10, 3)) >= 0.599 - TOLERANCE
+        && (pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 10, 3)) <= 0.599 + TOLERANCE);
+
+    assert((pente_maximale(tab_latitudes,tab_longitudes, tab_altitudes, 10, 1)) >= 1.194 - TOLERANCE
+        && (pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 10, 1)) <= 1.194 + TOLERANCE);
+
+    assert((pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 10, 10)) >= 0 - TOLERANCE
+        && (pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 10, 10)) <= 0 + TOLERANCE);
+
+    assert((pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 10, -2)) >= 0 - TOLERANCE
+        && (pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 10, -2)) <= 0 + TOLERANCE);
+
+    assert((pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 10, 0)) >= 0 - TOLERANCE
+        && (pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 10, 0)) <= 0 + TOLERANCE);
+
+    // Appel de la fonction lire_donnees_gps pour charger test 2
+    lire_donnees_gps("test2.txt", tab_latitudes, tab_longitudes, tab_altitudes, NB_MAX_POINT);
+
+    assert((pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 2482, 50)) >= 6.116 - TOLERANCE
+        && (pente_maximale(tab_latitudes, tab_longitudes, tab_altitudes, 2482, 50)) <= 6.116 + TOLERANCE);
 }
